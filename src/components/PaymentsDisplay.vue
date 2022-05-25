@@ -28,7 +28,7 @@
 
         <v-list>
           <v-dialog
-              v-model="dialog"
+              v-model="dialogMenu"
               width="500"
           >
             <template v-slot:activator="{ on }">
@@ -40,14 +40,13 @@
               </v-list-item>
             </template>
             <v-card>
-              <AddPaymentForm titleText="Редактировать" :values="{item}"/>
+              <AddPaymentForm v-if="dialogMenu" titleText="Редактировать" :values="{item}" @closeMenu="closeMenu"/>
             </v-card>
           </v-dialog>
 
           <v-list-item @click="deleteItem(item)"><v-icon>mdi-delete</v-icon>&nbsp;Удалить</v-list-item>
         </v-list>
       </v-menu>
-
 
     </v-row>
     <v-divider class="my-4"/>
@@ -62,7 +61,7 @@ export default {
   components: {AddPaymentForm},
   data() {
     return {
-      dialog: false
+      dialogMenu: false
     }
   },
   props: {
@@ -75,6 +74,9 @@ export default {
     deleteItem(item) {
       this.$store.commit('deleteDataToPaymentList', item)
     },
+    closeMenu(data) {
+      this.dialogMenu = data
+    }
   }
 }
 </script>

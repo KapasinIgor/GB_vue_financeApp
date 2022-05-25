@@ -42,6 +42,7 @@ export default {
       this.date = '';
       this.category = '';
       this.value = '';
+      this.$emit('closeMenu', false)
     }
   },
   async created() {
